@@ -5,30 +5,47 @@ crypter = Crypt()
 
 while True:
 
-	print('Deseja criar ou ler uma mensagem criptografada?\n\n')
+	print('1. Deseja criar ou ler uma mensagem criptografada?\n')
 
-	route1 = str(input('Y (criar nova mensagem) ou R (ler mensagem) ou N (fechar programa)\n\n'))
+	route = str(input('2. Y (criar nova mensagem) ou R (ler mensagem) ou N (fechar programa)\n\n'))
 	
-	if route1 == 'Y':
+	if route == 'Y':
 
-		message = str(input('Mensagem: '))
+		message = str(input('\nMensagem: '))
 
-		print(crypter.with_random_token(text = message), '\n\n')
+		try:
 
-		print('Lembre-se de salvar o token acima.\n')
+			print(crypter.with_random_token(text = message), '\n\n')
 
-	elif route1 == 'R':
+			print('OBS: Lembre-se de salvar o token acima.\n')
 
-		path = str(input('Caminho para a imagem: '))
+
+		except:
+
+			print('\nErro: caracteres como acentos, números e letras maiúsculas não são aceitos.\n')
+
+			pass
+
+	elif route == 'R':
+
+		path = str(input('\nCaminho para a imagem: '))
 
 		token = str(input('Token: '))
 
-		print(crypter.decrypt_text(path = path, token = token))
+		try:
 
-	elif route1 == 'N':
+			print('\n', crypter.decrypt_text(path = path, token = token), '\n')
+
+		except:
+
+			print('\nToken ou Caminho para a imagem podem estar incorretos.\n')
+
+			pass
+
+	elif route == 'N':
 
 		break
 
 	else:
 
-		print('Comando não encontrado')
+		print('\nErro: comando não encontrado!\n')
