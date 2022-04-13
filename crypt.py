@@ -46,7 +46,7 @@ class Crypt(object):
 		qrcode_image_data = make(encrypt_text)
 
 		qrcode_image_data.save(
-			'qrcodes/' + str(token) + ' - ' + str(int(datetime.now().timestamp())) + '.png'
+			'qrcodes/' + str(int(datetime.now().timestamp())) + '.png'
 		)
 
 		return {'token': token}
