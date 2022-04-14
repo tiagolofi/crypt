@@ -10,23 +10,14 @@ from PIL import Image
 from pyzbar.pyzbar import decode
 from ast import literal_eval
 from os import listdir, remove
+from alphabet import ALPHABET
 
 class Crypt(object):
 	"""docstring for Crypt"""
 	def __init__(self):
 		super(Crypt, self).__init__()
 		self.numbers = list(range(10, 99))
-		self.alphabet = {
-			'a': 40, 'b': 3, 'c': 91, 
-			'd': 73, 'e': 25, 'f': 61, 
-			'g': 84, 'h': 92, 'i': 83, 
-			'j': 60, 'k': 53, 'l': 23,
-			'm': 13, 'n': 31, 'o': 12, 
-			'p': 20, 'q': 51, 'r': 6, 
-			's': 49, 't': 57, 'u': 18, 
-			'v': 8, 'w': 19, 'x': 24, 
-			'y': 80, 'z': 14, ' ': 27
-		}
+		self.alphabet = ALPHABET
 
 	def with_random_token(self, text: str):
 
@@ -61,7 +52,6 @@ class Crypt(object):
 		data.append({
 			'token': token,
 			'pathimage': path_image,
-			'text': text
 		})
 
 		with open('logs/logs.json', 'w') as file:

@@ -46,7 +46,7 @@ while True:
 
 		messages = crypter.list_all_messages()
 
-		if len(messages) == 0:
+		if len(messages) == 2:
 
 			print('\nNenhuma mensagem foi criada.\n')
 
