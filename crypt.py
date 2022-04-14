@@ -21,6 +21,10 @@ class Crypt(object):
 
 	def with_random_token(self, text: str):
 
+		if len(text) > 180:
+
+			return {'message': 'Excede o número de caracteres'}
+
 		token = sample(self.numbers, 3)
 
 		token = int(''.join([str(i) for i in token]))
