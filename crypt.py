@@ -17,7 +17,7 @@ class Crypt(object):
 	def __init__(self):
 		super(Crypt, self).__init__()
 		self.numbers = list(range(10, 99))
-		self.alphabet = ALPHABET
+		self.alphabet = ALPHABET # codificacao de alfabeto a criterio do desenvolvedor
 
 	def with_random_token(self, text: str):
 
