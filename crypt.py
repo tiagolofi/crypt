@@ -3,12 +3,13 @@
 # 253612
 
 from random import sample
-from json import dumps
+from json import dumps, dump, load
 from qrcode import make
 from datetime import datetime
 from PIL import Image
 from pyzbar.pyzbar import decode
 from ast import literal_eval
+from os import listdir, remove
 
 class Crypt(object):
 	"""docstring for Crypt"""
@@ -35,7 +36,7 @@ class Crypt(object):
 
 		full_text = []
 
-		for word in text:
+		for word in text.lower():
 
 			word = ''.join([str(self.alphabet.get(i)*token) for i in word][0])
 
@@ -47,9 +48,25 @@ class Crypt(object):
 
 		qrcode_image_data = make(encrypt_text)
 
+		path_image = 'qrcodes/' + str(int(datetime.now().timestamp())) + '.png'
+
 		qrcode_image_data.save(
-			'qrcodes/' + str(int(datetime.now().timestamp())) + '.png'
+			path_image
 		)
+
+		with open('logs/logs.json', 'r') as file:
+
+			data = load(file)
+
+		data.append({
+			'token': token,
+			'pathimage': path_image,
+			'text': text
+		})
+
+		with open('logs/logs.json', 'w') as file:
+
+			dump(data, file, indent = 2)
 
 		return {'token': token}
 
@@ -62,3 +79,27 @@ class Crypt(object):
 		text = ''.join([reversed_alphabet.get(int(i)/int(token)) for i in data_image['encrypt_text']])
 
 		return text
+
+	def list_all_messages(self):
+		
+		with open('logs/logs.json', 'r') as file:
+
+			data = load(file)
+
+		return dumps(data, indent = 2)
+
+	def delete_and_reset_all_messages(self):
+
+		for i in listdir('qrcodes/'):
+
+			remove('qrcodes/' + i)
+
+		remove('logs/logs.json')
+
+		data = []
+
+		with open('logs/logs.json', 'w') as file:
+
+			dump(data, file, indent = 2)
+
+		return None
